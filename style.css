@@ -1,0 +1,73 @@
+/* Import Font Awesome for icons */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+.autoscroll-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ddd; /* Lighter border */
+    padding: 10px; /* Reduced padding */
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Softer shadow */
+    font-family: 'Arial', sans-serif; /* More common font */
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Smaller gap between elements */
+}
+
+.autoscroll-button {
+    background-color: #5cb85c; /* Muted green */
+    color: white;
+    border: none;
+    padding: 6px 10px; /* Smaller buttons */
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s; /* Added transform transition */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.autoscroll-button:hover {
+    background-color: #4cae4c; /* Slightly darker green on hover */
+    transform: scale(1.05); /* Slightly larger on hover */
+}
+
+.autoscroll-button:disabled {
+    opacity: 0.6; /* Dimmed when disabled */
+    cursor: default;
+    transform: none; /* No transform when disabled */
+}
+
+.autoscroll-speed-button {
+    background-color: #f0ad4e; /* Muted yellow */
+    color: white;
+    border: none;
+    padding: 6px 10px; /* Smaller buttons */
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.autoscroll-speed-button:hover {
+    background-color: #eea236; /* Slightly darker yellow on hover */
+    transform: scale(1.05);
+}
+
+.autoscroll-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Smaller gap between controls elements */
+}
+
+.autoscroll-speed-display {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 8px;
+    color: #333; /* Darker text color */
+}
