@@ -13,34 +13,41 @@
 
     // --- Autoscroll Logic ---
     let scrollInterval;
-    let scrollSpeed = 0.8;
-    let isScrolling = false;
-    let startButton, pauseButton, speedDisplay; // Declare variables here
-
+    let scrollSpeed = 0.6;
     let scrollAccumulator = 0; // To accumulate fractional scroll amounts
+    let isScrolling = false;
+    let toggleButton, speedDisplay; // Declare variables here
+
+
+    function toggleScrolling() {
+        if (isScrolling) {
+            pauseScrolling();
+        } else {
+            startScrolling();
+        }
+    }
 
     function startScrolling() {
         if (isScrolling) return;
         isScrolling = true;
         scrollInterval = setInterval(() => {
             scrollAccumulator += scrollSpeed;
-            const scrollAmount = Math.floor(scrollAccumulator); // Get the integer part
-            scrollAccumulator -= scrollAmount; // Remove the integer part from the accumulator
+            const scrollAmount = Math.floor(scrollAccumulator);
+            scrollAccumulator -= scrollAmount;
             window.scrollBy(0, scrollAmount);
-        }, 30);
-        updateButtonStates();
-        updateSpeedDisplay(); // Ensure speed display is updated when starting
+        }, 30); // Adjust interval for smoothness
+
+        toggleButton.innerHTML = `<i class="fas fa-pause"></i>`; // Pause icon
+        updateSpeedDisplay();
     }
 
     function pauseScrolling() {
-      if (!isScrolling) return;
+        if (!isScrolling) return;
         isScrolling = false;
-      if (scrollInterval) {
-          clearInterval(scrollInterval);
-          scrollInterval = null; // Reset scrollInterval
-      }
-        updateButtonStates();
-        updateSpeedDisplay(); // Ensure speed display is updated when pausing
+        clearInterval(scrollInterval);
+        scrollInterval = null;
+        toggleButton.innerHTML = `<i class="fas fa-play"></i>`; // Play icon
+        updateSpeedDisplay();
     }
 
     function increaseSpeed() {
@@ -49,13 +56,13 @@
     }
 
     function decreaseSpeed() {
-        scrollSpeed = Math.max(scrollSpeed - 0.1, 0.01); // Minimum speed: 0.01
+        scrollSpeed = Math.max(scrollSpeed - 0.1, 0.01);
         updateSpeedDisplay();
     }
 
     function updateSpeedDisplay() {
         if (speedDisplay) {
-            speedDisplay.textContent = `${scrollSpeed.toFixed(1)}x`; // Show one decimal place
+            speedDisplay.textContent = `${scrollSpeed.toFixed(1)}x`;
         }
     }
 
@@ -68,18 +75,13 @@
 
   function createPanel(){
     // --- UI Element Creation ---
-      const panel = document.createElement('div');
-      panel.classList.add('autoscroll-panel');
+    const panel = document.createElement('div');
+    panel.classList.add('autoscroll-panel');
 
-      startButton = document.createElement('button');
-      startButton.innerHTML = `<i class="fas fa-play"></i>`;
-      startButton.classList.add('autoscroll-button', 'autoscroll-start');
-      startButton.onclick = startScrolling;
-
-      pauseButton = document.createElement('button');
-      pauseButton.innerHTML = `<i class="fas fa-pause"></i>`;
-      pauseButton.classList.add('autoscroll-button', 'autoscroll-pause');
-      pauseButton.onclick = pauseScrolling;
+    toggleButton = document.createElement('button'); // Single toggle button
+    toggleButton.innerHTML = `<i class="fas fa-play"></i>`; // Initial play icon
+    toggleButton.classList.add('autoscroll-button', 'autoscroll-toggle');
+    toggleButton.onclick = toggleScrolling;
 
       const decreaseButton = document.createElement('button');
       decreaseButton.innerHTML = `<i class="fas fa-minus"></i>`;
@@ -101,13 +103,10 @@
       controlsContainer.appendChild(speedDisplay);
       controlsContainer.appendChild(increaseButton);
 
-      panel.appendChild(startButton);
-      panel.appendChild(pauseButton);
-      panel.appendChild(controlsContainer);
-      document.body.appendChild(panel);
+      panel.appendChild(toggleButton);      // Add the toggle button
+        panel.appendChild(controlsContainer);
 
-      // Initial button states update
-      updateButtonStates();
+        document.body.appendChild(panel);
   }
   createPanel();
 })();

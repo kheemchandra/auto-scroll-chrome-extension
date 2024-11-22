@@ -30,7 +30,9 @@
     justify-content: center;
 }
 
-.autoscroll-button:hover {
+/* Removed autoscroll-start and autoscroll-pause styles and combined into one. */
+.autoscroll-toggle:hover,
+.autoscroll-speed-button:hover {
     background-color: #4cae4c; /* Slightly darker green on hover */
     transform: scale(1.05); /* Slightly larger on hover */
 }
@@ -54,10 +56,7 @@
     justify-content: center;
 }
 
-.autoscroll-speed-button:hover {
-    background-color: #eea236; /* Slightly darker yellow on hover */
-    transform: scale(1.05);
-}
+
 
 .autoscroll-controls {
     display: flex;
