@@ -13,7 +13,7 @@
 
     // --- Autoscroll Logic ---
     let scrollInterval;
-    let scrollSpeed = 1.5;
+    let scrollSpeed = 0.8;
     let isScrolling = false;
     let startButton, pauseButton, speedDisplay; // Declare variables here
 
