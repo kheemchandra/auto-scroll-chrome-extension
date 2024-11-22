@@ -17,11 +17,16 @@
     let isScrolling = false;
     let startButton, pauseButton, speedDisplay; // Declare variables here
 
+    let scrollAccumulator = 0; // To accumulate fractional scroll amounts
+
     function startScrolling() {
         if (isScrolling) return;
         isScrolling = true;
         scrollInterval = setInterval(() => {
-            window.scrollBy(0, scrollSpeed);
+            scrollAccumulator += scrollSpeed;
+            const scrollAmount = Math.floor(scrollAccumulator); // Get the integer part
+            scrollAccumulator -= scrollAmount; // Remove the integer part from the accumulator
+            window.scrollBy(0, scrollAmount);
         }, 30);
         updateButtonStates();
         updateSpeedDisplay(); // Ensure speed display is updated when starting
@@ -39,12 +44,12 @@
     }
 
     function increaseSpeed() {
-        scrollSpeed = Math.min(scrollSpeed + 0.1, 10); // Increment by 0.1
+        scrollSpeed = Math.min(scrollSpeed + 0.1, 10);
         updateSpeedDisplay();
     }
 
     function decreaseSpeed() {
-        scrollSpeed = Math.max(scrollSpeed - 0.1, 0.1); // Decrement by 0.1, min speed 0.1
+        scrollSpeed = Math.max(scrollSpeed - 0.1, 0.01); // Minimum speed: 0.01
         updateSpeedDisplay();
     }
 
